@@ -1,18 +1,26 @@
 FROM steamcmd/steamcmd:ubuntu-20
 
-USER ${USER}
 ENV STEAMAPPID 1690800
 ENV STEAMAPP Satisfactory
 ENV STEAMAPPDIR "SatisfactoryDedicatedServer"
+ENV USER satisfactory
+ENV WORKDIR "/home/satisfactory"
 
-COPY ./entrypoint.sh ~/entrypoint.sh
-COPY ./init.sh ~/init.sh
-COPY ./gameserver.sh ~/gameserver.sh
-RUN chown -R "${USER}:${USER}" "~/"
-RUN chmod +x "~/entry.sh"
-RUN chmod +x "~/init.sh"
-RUN chmod +x "~/gameserver.sh"
+RUN useradd -rm -d /home/satisfactory -s /bin/bash -u 1001 satisfactory
+USER ${USER}
+WORKDIR ${WORKDIR}
 
-VOLUME [ "~/SatisfactoryDedicatedServer",  ]
+COPY --chown=${USER}:${USER} ./entrypoint.sh ${WORKDIR}/entrypoint.sh
+COPY --chown=${USER}:${USER} ./init.sh ${WORKDIR}/init.sh
+COPY --chown=${USER}:${USER} ./gameserver.sh ${WORKDIR}/gameserver.sh
+
+RUN chown -R "${USER}:${USER}" "${WORKDIR}"
+RUN chmod +x "${WORKDIR}/entrypoint.sh"
+RUN chmod +x "${WORKDIR}/init.sh"
+RUN chmod +x "${WORKDIR}/gameserver.sh"
+
+VOLUME [ "${WORKDIR}/SatisfactoryDedicatedServer",  ]
+
+
 
 EXPOSE 7777/udp 15000/udp 15777/udp

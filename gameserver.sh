@@ -1,3 +1,3 @@
 #!/bin/bash
 
-(cd ~/${STEAMAPPDIR}; ./FactoryServer.sh)
+(cd ${WORKDIR}/${STEAMAPPDIR}; ./FactoryServer.sh)
