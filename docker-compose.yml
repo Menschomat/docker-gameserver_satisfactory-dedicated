@@ -1,0 +1,14 @@
+services:
+  game-server:
+    image: mensch0mat/satisfactory:latest
+    ports:
+      - "15777:15777/udp"
+      - "15000:15000/udp"
+      - "7777:7777/udp"
+volumes:
+  //Stores the game - So you don't have to download it every time!
+  server:
+  //Stores the save-games
+  saves:
+  //TODO Saves are copied here as tar.gz every X hours
+  backups:
