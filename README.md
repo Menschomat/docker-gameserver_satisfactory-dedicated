@@ -1,1 +1,1 @@
-# docker-gameserver_satisfactory-dedicated
+# [unofficial] Docker-Image for Satisfactory-Dedicated
