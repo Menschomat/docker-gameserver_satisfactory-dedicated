@@ -1,1 +1,9 @@
-#TODO
+#!/bin/bash
+
+# Make sure savegames-dirs are present
+test -d ~/.config/Epic/FactoryGame/Saved || mkdir -p ~/.config/Epic/FactoryGame/Saved
+test -d ~/${STEAMAPPDIR}/saves || mkdir ~/${STEAMAPPDIR}/saves
+test -L ~/.config/Epic/FactoryGame/Saved/SaveGames || ln -s ~/${STEAMAPPDIR}/saves ~/.config/Epic/FactoryGame/Saved/SaveGames
+
+#Install/Update the game
+steamcmd +login anonymous +force_install_dir ~/${STEAMAPPDIR} +app_update ${STEAMAPPID} validate +quit
